@@ -8,10 +8,8 @@ class LoginViewModel : ViewModel() {
 
     // Campos de texto (Email y Password)
     private val _email = MutableLiveData<String>()
-    val email: LiveData<String> = _email
 
     private val _password = MutableLiveData<String>()
-    val password: LiveData<String> = _password
 
     // Estado del botón (habilitado o deshabilitado)
     private val _isButtonEnabled = MutableLiveData<Boolean>().apply { value = false }

@@ -10,24 +10,15 @@
             android:id="@+id/scaffold_fragment"
             android:name="com.example.proyectoandroid2.fragments.ScaffoldFragment"
             android:label="Scaffold Fragment"
-            tools:layout="@layout/fragment_scaffold">
-        <action android:id="@+id/action_ScaffoldFragment_to_nav_rv" app:destination="@id/nav_rv"/>
-        <!-- Acción de navegación al LoginFragment -->
-        <action
-                android:id="@+id/action_ScaffoldFragment_to_login"
-                app:destination="@id/nav_login" />
-    </fragment>
+            tools:layout="@layout/fragment_scaffold"/>
 
     <!-- Fragmento Home -->
     <fragment
             android:id="@+id/nav_home"
             android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.HomeFragment"
             android:label="@string/menu_home"
-            tools:layout="@layout/fragment_home">
-    <action
-            android:id="@+id/action_ScaffoldFragment_to_login"
-            app:destination="@id/nav_login" />
-    </fragment>
+            tools:layout="@layout/fragment_home"/>
+
     <!-- Fragmento RV -->
     <fragment
             android:id="@+id/nav_rv"
@@ -41,11 +32,4 @@
             android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.SlideshowFragment"
             android:label="@string/menu_slideshow"
             tools:layout="@layout/fragment_slideshow"/>
-
-    <!-- Fragmento Login -->
-    <fragment
-            android:id="@+id/nav_login"
-            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.LoginFragment"
-            android:label="Login"
-            tools:layout="@layout/fragment_login" />
 </navigation>

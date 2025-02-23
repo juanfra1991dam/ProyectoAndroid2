@@ -8,13 +8,11 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
@@ -45,7 +43,7 @@ class ScaffoldFragment : Fragment() {
         // Inicializar el callback para el botón de retroceso
         onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                verificarYCerrarSesion(navController)
+                verificarYCerrarSesion()
             }
         }
 
@@ -118,18 +116,18 @@ class ScaffoldFragment : Fragment() {
         userEmailTextView.text = userEmail
     }
 
-    private fun verificarYCerrarSesion(navController: NavController) {
+    private fun verificarYCerrarSesion() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
             // Si hay un usuario autenticado, mostrar diálogo de confirmación para cerrar sesión
-            mostrarDialogoConfirmacion(navController, "¿Deseas cerrar sesión?", true)
+            mostrarDialogoConfirmacion("¿Deseas cerrar sesión?", true)
         } else {
             // Si no hay sesión activa, continuar con la navegación
-            mostrarDialogoConfirmacion(navController, "No hay sesión activa", false)
+            mostrarDialogoConfirmacion("No hay sesión activa", false)
         }
     }
 
-    private fun mostrarDialogoConfirmacion(navController: NavController, mensaje: String, cerrarSesion: Boolean) {
+    private fun mostrarDialogoConfirmacion(mensaje: String, cerrarSesion: Boolean) {
         AlertDialog.Builder(requireContext())
             .setMessage(mensaje)
             .setPositiveButton(R.string.alert_si) { _, _ ->

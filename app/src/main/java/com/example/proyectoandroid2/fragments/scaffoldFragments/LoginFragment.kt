@@ -17,6 +17,7 @@ import com.example.proyectoandroid2.R
 import com.example.proyectoandroid2.viewmodels.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
@@ -46,6 +47,10 @@ class LoginFragment : Fragment() {
         val emailEditText = view.findViewById<TextInputEditText>(R.id.editTextEmail)
         val passwordEditText = view.findViewById<TextInputEditText>(R.id.editTextPassword)
 
+        // Añadimos los TextInputLayouts para los errores
+        val emailInputLayout = view.findViewById<TextInputLayout>(R.id.inputLayoutEmail)
+        val passwordInputLayout = view.findViewById<TextInputLayout>(R.id.inputLayoutPassword)
+
         loginViewModel.isButtonEnabled.observe(viewLifecycleOwner) { isEnabled ->
             submitButton.isEnabled = isEnabled
         }
@@ -69,8 +74,28 @@ class LoginFragment : Fragment() {
         submitButton.setOnClickListener {
             val emailText = emailEditText.text.toString().trim()
             val passwordText = passwordEditText.text.toString().trim()
-            firebaseAuth = FirebaseAuth.getInstance()
-            signIn(emailText, passwordText)
+
+            // Validación de campos vacíos
+            var isValid = true
+            if (emailText.isEmpty()) {
+                emailInputLayout.error = getString(R.string.usuario_obligatorio)
+                isValid = false
+            } else {
+                emailInputLayout.error = null
+            }
+
+            if (passwordText.isEmpty()) {
+                passwordInputLayout.error = getString(R.string.password_obligatorio)
+                isValid = false
+            } else {
+                passwordInputLayout.error = null
+            }
+
+            if (isValid) {
+                // Si los campos son válidos, proceder al inicio de sesión
+                firebaseAuth = FirebaseAuth.getInstance()
+                signIn(emailText, passwordText)
+            }
         }
 
         registerButton.setOnClickListener {

@@ -19,9 +19,7 @@
             android:id="@+id/ScaffoldFragment"
             android:name="com.example.proyectoandroid2.fragments.ScaffoldFragment"
             android:label="Scaffold Fragment"
-            tools:layout="@layout/fragment_scaffold">
-        <action android:id="@+id/action_ScaffoldFragment_to_LoginFragment" app:destination="@id/LoginFragment"/>
-    </fragment>
+            tools:layout="@layout/fragment_scaffold"/>
 
     <!-- RVFragment -->
     <fragment
@@ -30,10 +28,4 @@
             android:label="@string/menu_clasificacion"
             tools:layout="@layout/fragment_rv"/>
 
-    <!-- SlideshowFragment -->
-    <fragment
-            android:id="@+id/nav_slideshow"
-            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.SlideshowFragment"
-            android:label="@string/menu_slideshow"
-            tools:layout="@layout/fragment_slideshow"/>
 </navigation>

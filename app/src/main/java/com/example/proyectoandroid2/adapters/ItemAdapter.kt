@@ -1,13 +1,12 @@
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectoandroid2.R
 import com.example.proyectoandroid2.databinding.LayoutItemBinding
 import com.example.proyectoandroid2.items.Item
 
-class ItemAdapter(
-    private val itemList: List<Item>,
-) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+class ItemAdapter(private var itemList: MutableList<Item>) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(private val binding: LayoutItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Item) {
@@ -17,7 +16,6 @@ class ItemAdapter(
             binding.nombreEquipo.text = data.nombreEquipo
             binding.puntos.text = data.puntos.toString()
 
-            // Configuramos las imágenes
             when (data.nacionalidad) {
                 "ESP" -> binding.imagenNacionalidad.setImageResource(R.drawable.ic_bandera_esp)
                 "ITA" -> binding.imagenNacionalidad.setImageResource(R.drawable.ic_bandera_ita)
@@ -51,4 +49,32 @@ class ItemAdapter(
     override fun getItemCount(): Int {
         return itemList.size
     }
+
+    // Metodo para actualizar la lista
+    fun updateList(newList: List<Item>) {
+        val diffResult = DiffUtil.calculateDiff(ItemDiffCallback(itemList, newList))
+        itemList.clear()
+        itemList.addAll(newList)
+        diffResult.dispatchUpdatesTo(this)
+    }
+
+    class ItemDiffCallback(private val oldList: List<Item>, private val newList: List<Item>) : DiffUtil.Callback() {
+
+        override fun getOldListSize(): Int = oldList.size
+
+        override fun getNewListSize(): Int = newList.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            // Compara los identificadores de los items (por ejemplo, el ID)
+            return oldList[oldItemPosition].numero == newList[newItemPosition].numero
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            // Compara el contenido completo de los items
+            return oldList[oldItemPosition] == newList[newItemPosition]
+        }
+    }
+
+
 }
+

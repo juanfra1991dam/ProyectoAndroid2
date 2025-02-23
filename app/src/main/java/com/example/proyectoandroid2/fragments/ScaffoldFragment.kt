@@ -1,5 +1,6 @@
 package com.example.proyectoandroid2.fragments
 
+import PilotosViewModel
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -20,6 +22,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.proyectoandroid2.R
 import com.example.proyectoandroid2.activities.MainActivity
 import com.example.proyectoandroid2.databinding.FragmentScaffoldBinding
+import com.example.proyectoandroid2.fragments.scaffoldFragments.RVFragment
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -28,11 +31,13 @@ class ScaffoldFragment : Fragment() {
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var navView: NavigationView
     private lateinit var navController: NavController
-    private lateinit var onBackPressedCallback: OnBackPressedCallback // Asegúrate de declararlo aquí
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private lateinit var viewModel: PilotosViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflar el layout para este fragmento
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
         binding = FragmentScaffoldBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -46,36 +51,13 @@ class ScaffoldFragment : Fragment() {
                 verificarYCerrarSesion()
             }
         }
-
-        // Se asocia el callback al dispatcher del activity
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
 
         /* TOOLBAR */
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
 
-        this.activity?.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.toolbar, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return when (menuItem.itemId) {
-                    R.id.action_search -> {
-                        true
-                    }
-
-                    R.id.action_sort -> {
-                        true
-                    }
-
-                    R.id.action_settings -> {
-                        true
-                    }
-
-                    else -> false
-                }
-            }
-        }, activity as AppCompatActivity, Lifecycle.State.RESUMED)
+        // Inicializar ViewModel
+        viewModel = ViewModelProvider(this).get(PilotosViewModel::class.java)
 
         // Unir Navigation con DrawerMenu (NavigationView)
         val navHostFragment =
@@ -83,9 +65,7 @@ class ScaffoldFragment : Fragment() {
         navController = navHostFragment.navController
 
         val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_home, R.id.nav_rv, R.id.nav_slideshow
-            ), binding.drawerLayout
+            setOf(R.id.nav_home, R.id.nav_rv, R.id.nav_slideshow), binding.drawerLayout
         )
 
         setupActionBarWithNavController(requireActivity() as AppCompatActivity, navController, appBarConfiguration)
@@ -108,12 +88,48 @@ class ScaffoldFragment : Fragment() {
         val headerView = navView.getHeaderView(0)
         val userEmailTextView: TextView = headerView.findViewById(R.id.textViewName)
 
-        // Obtener el email del usuario autenticado de Firebase
         val user = FirebaseAuth.getInstance().currentUser
         val userEmail = user?.email ?: "Usuario no autenticado"
-
-        // Actualizar el TextView con el email del usuario
         userEmailTextView.text = userEmail
+
+        // Agregar proveedor de menú
+        this.activity?.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.toolbar, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.action_search -> {
+                        val searchView = menuItem.actionView as androidx.appcompat.widget.SearchView
+                        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+                            override fun onQueryTextSubmit(query: String?): Boolean {
+                                query?.let { viewModel.filterPilotos(it) }
+                                return true
+                            }
+
+                            override fun onQueryTextChange(newText: String?): Boolean {
+                                newText?.let { viewModel.filterPilotos(it) }
+                                return true
+                            }
+                        })
+                        true
+                    }
+
+                    R.id.action_sort -> {
+                        viewModel.sortPilotsByName()
+                        true
+                    }
+
+                    R.id.action_logout -> {
+                        verificarYCerrarSesion()
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }, activity as AppCompatActivity, Lifecycle.State.RESUMED)
     }
 
     private fun verificarYCerrarSesion() {
@@ -137,13 +153,19 @@ class ScaffoldFragment : Fragment() {
 
                     // Navegar a MainActivity
                     val intent = Intent(requireContext(), MainActivity::class.java)
-                    // Asegurarse de que la nueva actividad se inicie de manera que no se pueda volver a la actividad anterior
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
-                    requireActivity().finish()  // Finaliza la actividad actual para que no se pueda regresar
+                    requireActivity().finish()
                 }
             }
             .setNegativeButton(R.string.alert_no, null)
             .show()
     }
+
+    private fun filterList(query: String) {
+        // Obtener referencia al fragmento RVFragment y llamar al metodo filterList
+        val rvFragment = parentFragmentManager.findFragmentByTag("RVFragment") as? RVFragment
+        rvFragment?.filterList(query)
+    }
 }
+

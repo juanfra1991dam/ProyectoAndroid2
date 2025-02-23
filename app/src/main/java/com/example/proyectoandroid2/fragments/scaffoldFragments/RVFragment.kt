@@ -1,26 +1,27 @@
 package com.example.proyectoandroid2.fragments.scaffoldFragments
 
 import ItemAdapter
-import android.app.AlertDialog
+import PilotosViewModel
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyectoandroid2.R
 import com.example.proyectoandroid2.databinding.FragmentRvBinding
 import com.example.proyectoandroid2.items.Item
-import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 class RVFragment : Fragment() {
 
     private var _binding: FragmentRvBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var originalPilotosList: List<Item>
+    private lateinit var adapter: ItemAdapter
+    private lateinit var viewModel: PilotosViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -32,13 +33,25 @@ class RVFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setHasOptionsMenu(true)
+
+        viewModel = ViewModelProvider(this).get(PilotosViewModel::class.java)
+
         val languageCode = arguments?.getString("languageCode") ?: "es"
         setLocale(languageCode)
 
         val pilotosList = getPilotosList()
+        viewModel.setPilotos(pilotosList)
 
+        adapter = ItemAdapter(pilotosList.toMutableList())
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = ItemAdapter(pilotosList)
+        binding.recyclerView.adapter = adapter
+
+        // Observa los cambios en la lista de pilotos
+        viewModel.pilotosList.observe(viewLifecycleOwner) { pilotos ->
+            // Actualiza el adaptador cuando la lista cambia
+            adapter.updateList(pilotos)
+        }
     }
 
     private fun setLocale(languageCode: String) {
@@ -76,8 +89,45 @@ class RVFragment : Fragment() {
         )
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_search -> {
+                val searchView = item.actionView as SearchView
+                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        query?.let { viewModel.filterPilotos(it) }
+                        return true
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        newText?.let { viewModel.filterPilotos(it) }
+                        return true
+                    }
+                })
+                true
+            }
+            R.id.action_sort -> {
+                // Llamar al metodo sortPilotsByName() en el ViewModel
+                viewModel.sortPilotsByName()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
+    // Metodo para filtrar la lista
+    fun filterList(query: String) {
+        val filteredList = originalPilotosList.filter { item ->
+            // Filtra por nombre de piloto o por número (insensible a mayúsculas/minúsculas)
+            item.nombrePiloto.contains(query, ignoreCase = true) || item.numero.toString().contains(query)
+        }
+        adapter.updateList(filteredList)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 }
+

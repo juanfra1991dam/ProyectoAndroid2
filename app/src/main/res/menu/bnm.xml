@@ -2,13 +2,13 @@
     <item
             android:id="@+id/bnm_home"
             android:icon="@drawable/ic_home"
-            android:title="Home" />
+            android:title="@string/menu_home" />
     <item
             android:id="@+id/bnm_dashboard"
             android:icon="@drawable/ic_dashboard"
-            android:title="Dashboard" />
+            android:title="@string/menu_panel" />
     <item
             android:id="@+id/bnm_notifications"
             android:icon="@drawable/ic_notifications"
-            android:title="Notifications" />
+            android:title="@string/menu_notificaciones" />
 </menu>

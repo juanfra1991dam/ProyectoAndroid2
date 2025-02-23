@@ -4,28 +4,18 @@
     <item
             android:id="@+id/action_search"
             android:icon="@drawable/ic_search"
-            android:title="Search"
+            android:title="@string/toolbar_busqueda"
             app:showAsAction="ifRoom|collapseActionView"
             app:actionViewClass="androidx.appcompat.widget.SearchView"/>
     <item
             android:id="@+id/action_sort"
             android:icon="@drawable/ic_sort"
-            android:title="Sort"
+            android:title="@string/toolbar_ordenar"
             app:showAsAction="ifRoom"/>
     <item
-            android:id="@+id/action_settings"
-            android:icon="@drawable/ic_more_vert"
-            android:title="Settings"
+            android:id="@+id/action_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/toolbar_logout"
             app:showAsAction="ifRoom">
-
-            <menu>
-                <item
-                        android:id="@+id/subitem1"
-                        android:title="Subitem 1"/>
-                <item
-                        android:id="@+id/subitem2"
-                        android:title="Subitem 2"/>
-            </menu>
-
     </item>
 </menu>

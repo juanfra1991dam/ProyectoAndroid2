@@ -63,7 +63,7 @@
         <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:inputType="textEmailAddress"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,11 +77,13 @@
         <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="66dp"
                 android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- LinearLayout horizontal para los botones de "Regístrate aquí" y "¿Has olvidado tu contraseña?" -->
+
+    <!-- Botón de "Enviar" -->
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,27 +92,25 @@
             android:padding="1dp">
 
         <!-- Botón de "Regístrate aquí" -->
+
+        <!-- Botón de "¿Has olvidado tu contraseña?" -->
         <Button
                 android:id="@+id/buttonRegister"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:textColor="@color/white"
                 android:text="@string/registrarse"/>
-
-        <!-- Botón de "¿Has olvidado tu contraseña?" -->
         <Button
                 android:id="@+id/buttonForgotPassword"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="68dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:textColor="@color/white"
                 android:text="@string/password_olvidada"/>
     </LinearLayout>
-
-    <!-- Botón de "Enviar" -->
     <Button
             android:id="@+id/buttonSubmit"
             android:layout_width="match_parent"

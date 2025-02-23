@@ -1,0 +1,13 @@
+<resources>
+
+    <!-- Tema base para la aplicación -->
+    <style name="Base.Theme.ProyectoAndroid2" parent="Theme.Material3.DayNight.NoActionBar">
+    </style>
+
+    <!-- Tema principal de la aplicación -->
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+</resources>

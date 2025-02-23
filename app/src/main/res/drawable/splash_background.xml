@@ -1,0 +1,10 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo blanco -->
+    <item android:drawable="@color/white"/>
+    <!-- Imagen centrada -->
+    <item>
+        <bitmap
+                android:src="@drawable/splash_moto_gp"
+                android:gravity="center"/>
+    </item>
+</layer-list>

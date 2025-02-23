@@ -1,0 +1,91 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:padding="8dp"
+              android:background="#FFFFFF"
+              android:gravity="center_vertical">
+
+    <!-- Posición del piloto -->
+    <TextView
+            android:id="@+id/posicion"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/posicion"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    <!-- Foto de la fabrica -->
+    <ImageView
+            android:id="@+id/imagenFabrica"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/logo"
+            android:src="@drawable/ic_ducati"
+            android:layout_marginEnd="8dp" />
+
+    <!-- Contenedor para el nombre y equipo -->
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/lyNombreEquipo"
+            android:orientation="vertical">
+
+        <!-- Nombre del piloto con campo de texto -->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+            <!-- Campo de texto para el número -->
+            <TextView
+                    android:id="@+id/numero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/numero"
+                    android:textSize="16sp"
+                    android:layout_marginEnd="4dp"
+                    android:gravity="center"/>
+
+            <TextView
+                    android:id="@+id/nombrePiloto"
+                    android:layout_width="205dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nombre_piloto"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- Nombre del equipo -->
+        <TextView
+                android:id="@+id/nombreEquipo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nombre_equipo"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"/>
+    </LinearLayout>
+
+    <!-- Imagen de la bandera de nacionalidad -->
+    <ImageView
+            android:id="@+id/imagenNacionalidad"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_bandera_esp"
+            android:contentDescription="@string/bandera_de_la_nacionalidad"
+            android:layout_marginStart="8dp" />
+
+    <!-- Puntos del piloto -->
+    <TextView
+            android:id="@+id/puntos"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/puntos"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+</LinearLayout>

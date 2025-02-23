@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph"
+            app:startDestination="@id/nav_home">
+
+    <!-- Fragmento Scaffold -->
+    <fragment
+            android:id="@+id/scaffold_fragment"
+            android:name="com.example.proyectoandroid2.fragments.ScaffoldFragment"
+            android:label="Scaffold Fragment"
+            tools:layout="@layout/fragment_scaffold">
+        <action android:id="@+id/action_ScaffoldFragment_to_nav_rv" app:destination="@id/nav_rv"/>
+        <!-- Acción de navegación al LoginFragment -->
+        <action
+                android:id="@+id/action_ScaffoldFragment_to_login"
+                app:destination="@id/nav_login" />
+    </fragment>
+
+    <!-- Fragmento Home -->
+    <fragment
+            android:id="@+id/nav_home"
+            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.HomeFragment"
+            android:label="@string/menu_home"
+            tools:layout="@layout/fragment_home">
+    <action
+            android:id="@+id/action_ScaffoldFragment_to_login"
+            app:destination="@id/nav_login" />
+    </fragment>
+    <!-- Fragmento RV -->
+    <fragment
+            android:id="@+id/nav_rv"
+            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.RVFragment"
+            android:label="@string/menu_clasificacion"
+            tools:layout="@layout/fragment_rv"/>
+
+    <!-- Fragmento Slideshow -->
+    <fragment
+            android:id="@+id/nav_slideshow"
+            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.SlideshowFragment"
+            android:label="@string/menu_slideshow"
+            tools:layout="@layout/fragment_slideshow"/>
+
+    <!-- Fragmento Login -->
+    <fragment
+            android:id="@+id/nav_login"
+            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.LoginFragment"
+            android:label="Login"
+            tools:layout="@layout/fragment_login" />
+</navigation>

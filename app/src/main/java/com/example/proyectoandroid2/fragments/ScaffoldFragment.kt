@@ -22,7 +22,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.proyectoandroid2.R
 import com.example.proyectoandroid2.activities.MainActivity
 import com.example.proyectoandroid2.databinding.FragmentScaffoldBinding
-import com.example.proyectoandroid2.fragments.scaffoldFragments.RVFragment
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -117,7 +116,7 @@ class ScaffoldFragment : Fragment() {
                     }
 
                     R.id.action_sort -> {
-                        viewModel.sortPilotsByName()
+                        viewModel.sortPilotsByPoints()
                         true
                     }
 
@@ -160,12 +159,6 @@ class ScaffoldFragment : Fragment() {
             }
             .setNegativeButton(R.string.alert_no, null)
             .show()
-    }
-
-    private fun filterList(query: String) {
-        // Obtener referencia al fragmento RVFragment y llamar al metodo filterList
-        val rvFragment = parentFragmentManager.findFragmentByTag("RVFragment") as? RVFragment
-        rvFragment?.filterList(query)
     }
 }
 

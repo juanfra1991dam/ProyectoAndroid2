@@ -4,11 +4,15 @@ import ItemAdapter
 import PilotosViewModel
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectoandroid2.R
 import com.example.proyectoandroid2.databinding.FragmentRvBinding
 import com.example.proyectoandroid2.items.Item
@@ -52,6 +56,10 @@ class RVFragment : Fragment() {
             // Actualiza el adaptador cuando la lista cambia
             adapter.updateList(pilotos)
         }
+        val recyclerView: RecyclerView? = view.findViewById(R.id.recyclerView)
+
+        // Usar safe call para evitar errores si recyclerView es nulo
+        recyclerView?.scrollToPosition(0)
     }
 
     private fun setLocale(languageCode: String) {
@@ -107,22 +115,15 @@ class RVFragment : Fragment() {
                 true
             }
             R.id.action_sort -> {
-                // Llamar al metodo sortPilotsByName() en el ViewModel
-                viewModel.sortPilotsByName()
+                // Llamar al metodo sortPilotsByPoints() en el ViewModel
+                viewModel.sortPilotsByPoints()
+                // Desplazarse a la primera posición (inicio)
+                val recyclerView: RecyclerView = requireView().findViewById(R.id.recyclerView)
+                recyclerView.scrollToPosition(0)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-
-    // Metodo para filtrar la lista
-    fun filterList(query: String) {
-        val filteredList = originalPilotosList.filter { item ->
-            // Filtra por nombre de piloto o por número (insensible a mayúsculas/minúsculas)
-            item.nombrePiloto.contains(query, ignoreCase = true) || item.numero.toString().contains(query)
-        }
-        adapter.updateList(filteredList)
     }
 
     override fun onDestroyView() {

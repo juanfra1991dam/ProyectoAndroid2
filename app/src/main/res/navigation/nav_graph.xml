@@ -20,12 +20,4 @@
             android:name="com.example.proyectoandroid2.fragments.ScaffoldFragment"
             android:label="Scaffold Fragment"
             tools:layout="@layout/fragment_scaffold"/>
-
-    <!-- RVFragment -->
-    <fragment
-            android:id="@+id/nav_rv"
-            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.RVFragment"
-            android:label="@string/menu_clasificacion"
-            tools:layout="@layout/fragment_rv"/>
-
 </navigation>

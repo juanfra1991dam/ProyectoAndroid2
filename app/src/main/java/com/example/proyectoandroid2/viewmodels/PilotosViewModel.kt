@@ -10,8 +10,6 @@ class PilotosViewModel : ViewModel() {
 
     // Lista original de pilotos
     private val originalPilotosList: MutableList<Item> = mutableListOf()
-
-    // Variable para llevar el control del estado del orden
     private var isAscending = true
 
     fun setPilotos(pilotos: List<Item>) {
@@ -20,16 +18,15 @@ class PilotosViewModel : ViewModel() {
         _pilotosList.value = originalPilotosList
     }
 
-    fun sortPilotsByName() {
+    fun sortPilotsByPoints() {
         // Alterna entre ascendente y descendente
         isAscending = !isAscending
 
-        val sortedList = if (isAscending) {
-            originalPilotosList.sortedBy { it.nombrePiloto }
+        val sortedList = if (!isAscending) {
+            originalPilotosList.sortedBy { it.puntos }
         } else {
-            originalPilotosList.sortedByDescending { it.nombrePiloto }
+            originalPilotosList.sortedByDescending { it.puntos }
         }
-
         _pilotosList.value = sortedList
     }
 

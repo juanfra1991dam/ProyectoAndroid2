@@ -12,12 +12,45 @@
             android:label="Login"
             tools:layout="@layout/fragment_login">
         <action android:id="@+id/action_LoginFragment_to_ScaffoldFragment" app:destination="@id/ScaffoldFragment"/>
+        <action android:id="@+id/action_LoginFragment_to_ForgotPasswordFragment" app:destination="@id/ForgotPasswordFragment"/>
     </fragment>
 
-    <!-- ScaffoldFragment -->
+    <!-- ForgotPasswordFragment -->
+    <fragment
+            android:id="@+id/ForgotPasswordFragment"
+            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.ForgotPasswordFragment"
+            android:label="Forgot Password"
+            tools:layout="@layout/fragment_forgot_password"/>
+
+    <!-- ScaffoldFragment con Tabs -->
     <fragment
             android:id="@+id/ScaffoldFragment"
             android:name="com.example.proyectoandroid2.fragments.ScaffoldFragment"
             android:label="Scaffold Fragment"
-            tools:layout="@layout/fragment_scaffold"/>
+            tools:layout="@layout/fragment_scaffold">
+        <action android:id="@+id/action_ScaffoldFragment_to_HomeFragment" app:destination="@id/HomeFragment"/>
+        <action android:id="@+id/action_ScaffoldFragment_to_ListaFragment" app:destination="@id/ListaFragment"/>
+        <action android:id="@+id/action_ScaffoldFragment_to_FavoritosFragment" app:destination="@id/FavoritosFragment"/>
+    </fragment>
+
+    <!-- HomeFragment -->
+    <fragment
+            android:id="@+id/HomeFragment"
+            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.HomeFragment"
+            android:label="Home"
+            tools:layout="@layout/fragment_home"/>
+
+    <!-- ListaFragment -->
+    <fragment
+            android:id="@+id/ListaFragment"
+            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.ListaFragment"
+            android:label="Lista"
+            tools:layout="@layout/fragment_lista"/>
+
+    <!-- FavoritosFragment -->
+    <fragment
+            android:id="@+id/FavoritosFragment"
+            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.FavoritosFragment"
+            android:label="Favoritos"
+            tools:layout="@layout/fragment_favoritos"/>
 </navigation>

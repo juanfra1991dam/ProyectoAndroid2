@@ -6,16 +6,21 @@ import com.example.proyectoandroid2.R
 import com.example.proyectoandroid2.databinding.LayoutItemBinding
 import com.example.proyectoandroid2.items.Item
 
-class ItemAdapter(private var itemList: MutableList<Item>) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+class ItemAdapter(
+    var itemList: MutableList<Item>,
+    private val onFavoritoClick: (Item) -> Unit
+) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
+    // Actualización visual del estado del favorito dentro del adaptador
     class ItemViewHolder(private val binding: LayoutItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Item) {
+        fun bind(data: Item, onFavoritoClick: (Item) -> Unit) {
             binding.posicion.text = data.posicion.toString()
             binding.numero.text = data.numero.toString()
             binding.nombrePiloto.text = data.nombrePiloto
             binding.nombreEquipo.text = data.nombreEquipo
             binding.puntos.text = data.puntos.toString()
 
+            // Configuración de la bandera según la nacionalidad
             when (data.nacionalidad) {
                 "ESP" -> binding.imagenNacionalidad.setImageResource(R.drawable.ic_bandera_esp)
                 "ITA" -> binding.imagenNacionalidad.setImageResource(R.drawable.ic_bandera_ita)
@@ -26,12 +31,25 @@ class ItemAdapter(private var itemList: MutableList<Item>) : RecyclerView.Adapte
                 "JPN" -> binding.imagenNacionalidad.setImageResource(R.drawable.ic_bandera_jpn)
             }
 
+            // Configuración de la fábrica según el equipo
             when (data.fabrica) {
                 "Ducati" -> binding.imagenFabrica.setImageResource(R.drawable.ic_ducati)
                 "Ktm" -> binding.imagenFabrica.setImageResource(R.drawable.ic_ktm)
                 "Aprilia" -> binding.imagenFabrica.setImageResource(R.drawable.ic_aprilia)
                 "Yamaha" -> binding.imagenFabrica.setImageResource(R.drawable.ic_yamaha)
                 "Honda" -> binding.imagenFabrica.setImageResource(R.drawable.ic_honda)
+            }
+
+            // Configuración de la imagen de favorito según el estado del objeto 'Item'
+            if (data.favorito) {
+                binding.imagenFavorito.setImageResource(R.drawable.ic_favorito_selected)
+            } else {
+                binding.imagenFavorito.setImageResource(R.drawable.ic_favorito_unselected)
+            }
+
+            // Cambiar el estado del favorito cuando se haga clic
+            binding.imagenFavorito.setOnClickListener {
+                onFavoritoClick(data)
             }
         }
     }
@@ -43,14 +61,23 @@ class ItemAdapter(private var itemList: MutableList<Item>) : RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(itemList[position])
+        holder.bind(itemList[position], onFavoritoClick)
     }
 
     override fun getItemCount(): Int {
         return itemList.size
     }
 
-    // Metodo para actualizar la lista
+    // Método para actualizar la lista con solo los favoritos
+    fun updateFavoritesList(newList: List<Item>) {
+        val favoriteItems = newList.filter { it.favorito } // Filtrar solo los favoritos
+        val diffResult = DiffUtil.calculateDiff(ItemDiffCallback(itemList, favoriteItems))
+        itemList.clear()
+        itemList.addAll(favoriteItems)
+        diffResult.dispatchUpdatesTo(this)
+    }
+
+    // Método para actualizar la lista general (todos los elementos)
     fun updateList(newList: List<Item>) {
         val diffResult = DiffUtil.calculateDiff(ItemDiffCallback(itemList, newList))
         itemList.clear()
@@ -65,16 +92,11 @@ class ItemAdapter(private var itemList: MutableList<Item>) : RecyclerView.Adapte
         override fun getNewListSize(): Int = newList.size
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            // Compara los identificadores de los items (por ejemplo, el ID)
             return oldList[oldItemPosition].numero == newList[newItemPosition].numero
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            // Compara el contenido completo de los items
             return oldList[oldItemPosition] == newList[newItemPosition]
         }
     }
-
-
 }
-

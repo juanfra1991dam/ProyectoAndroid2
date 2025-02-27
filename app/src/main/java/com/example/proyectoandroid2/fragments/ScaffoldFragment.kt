@@ -64,7 +64,7 @@ class ScaffoldFragment : Fragment() {
         navController = navHostFragment.navController
 
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.nav_home, R.id.nav_rv, R.id.nav_slideshow), binding.drawerLayout
+            setOf(R.id.nav_home, R.id.nav_lista, R.id.nav_favoritos), binding.drawerLayout
         )
 
         setupActionBarWithNavController(requireActivity() as AppCompatActivity, navController, appBarConfiguration)
@@ -135,10 +135,10 @@ class ScaffoldFragment : Fragment() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
             // Si hay un usuario autenticado, mostrar diálogo de confirmación para cerrar sesión
-            mostrarDialogoConfirmacion("¿Deseas cerrar sesión?", true)
+            mostrarDialogoConfirmacion(getString(R.string.alert_cerrar_sesion), true)
         } else {
             // Si no hay sesión activa, continuar con la navegación
-            mostrarDialogoConfirmacion("No hay sesión activa", false)
+            mostrarDialogoConfirmacion(getString(R.string.alert_cerrar_sesion_inactiva), false)
         }
     }
 

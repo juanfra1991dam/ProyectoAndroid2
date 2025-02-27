@@ -21,10 +21,17 @@
 
     <!-- Fragmento RV -->
     <fragment
-            android:id="@+id/nav_rv"
-            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.RVFragment"
+            android:id="@+id/nav_lista"
+            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.ListaFragment"
             android:label="@string/menu_clasificacion"
-            tools:layout="@layout/fragment_rv"/>
+            tools:layout="@layout/fragment_lista"/>
+
+    <!-- Fragmento Favoritos -->
+    <fragment
+            android:id="@+id/nav_favoritos"
+            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.FavoritosFragment"
+            android:label="@string/menu_favoritos"
+            tools:layout="@layout/fragment_favoritos"/>
 
     <!-- Fragmento Slideshow -->
     <fragment

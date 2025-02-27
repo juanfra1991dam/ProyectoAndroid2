@@ -5,7 +5,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical"
               android:id="@+id/RVLayout"
-              tools:context=".fragments.scaffoldFragments.RVFragment">
+              tools:context=".fragments.scaffoldFragments.ListaFragment">
 
     <!-- Toolbar en la parte superior -->
     <androidx.appcompat.widget.Toolbar
@@ -43,13 +43,30 @@
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <!-- RecyclerView para mostrar elementos -->
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+    <!-- ProgressBar para indicar carga -->
+    <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            style="?android:attr/progressBarStyleLarge" />
+
+    <!-- SwipeRefreshLayout para permitir el swipe para refrescar -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
-            android:scrollbars="vertical"
-            tools:listitem="@layout/layout_item" />
+            android:layout_marginTop="8dp">
+
+        <!-- RecyclerView para mostrar elementos -->
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:scrollbars="vertical"
+                tools:listitem="@layout/layout_item" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

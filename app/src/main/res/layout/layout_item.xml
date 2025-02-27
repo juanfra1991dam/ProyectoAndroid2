@@ -14,7 +14,7 @@
             android:gravity="center"
             android:text="@string/posicion"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
     <!-- Foto de la fabrica -->
     <ImageView
@@ -23,7 +23,7 @@
             android:layout_height="48dp"
             android:contentDescription="@string/logo"
             android:src="@drawable/ic_ducati"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginEnd="8dp"/>
 
     <!-- Contenedor para el nombre y equipo -->
     <LinearLayout
@@ -52,7 +52,7 @@
 
             <TextView
                     android:id="@+id/nombrePiloto"
-                    android:layout_width="205dp"
+                    android:layout_width="182dp"
                     android:layout_height="wrap_content"
                     android:text="@string/nombre_piloto"
                     android:textSize="18sp"
@@ -70,14 +70,26 @@
                 android:textColor="@android:color/darker_gray"/>
     </LinearLayout>
 
+    <!-- Icono de estrella para marcar/desmarcar como favorito -->
+
+    <ImageView
+            android:id="@+id/imagenFavorito"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_favorito_unselected"
+            android:contentDescription="@string/favorito"
+            android:clickable="true"
+            android:focusable="true"/>
+
     <!-- Imagen de la bandera de nacionalidad -->
+
     <ImageView
             android:id="@+id/imagenNacionalidad"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_bandera_esp"
             android:contentDescription="@string/bandera_de_la_nacionalidad"
-            android:layout_marginStart="8dp" />
+            android:layout_marginStart="8dp"/>
 
     <!-- Puntos del piloto -->
     <TextView
@@ -87,5 +99,5 @@
             android:gravity="center"
             android:text="@string/puntos"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 </LinearLayout>

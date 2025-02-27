@@ -11,11 +11,12 @@
     <string name="toolbar_ordenar">Ordenar</string>
     <string name="toolbar_logout">Cerrar sesión</string>
     <string name="bienvenida">Bienvenid@, %1$s</string>
+    <string name="menu_contacto">Contacto</string>
     <string name="menu_clasificacion">Clasificación</string>
     <string name="menu_favoritos">Favoritos</string>
     <string name="menu_gallery">Galería</string>
     <string name="menu_slideshow">SlideShow</string>
-    <string name="titulo">Clasificación MotoGP</string>
+    <string name="titulo">MotoGP</string>
     <string name="login_con_google">Iniciar sesión con Google</string>
     <string name="login_con_facebook">Iniciar sesión con Facebook</string>
     <string name="submit">Iniciar sesión</string>
@@ -43,6 +44,12 @@
     <string name="credenciales_invalidas">Por favor, ingresa tus credenciales correctamente</string>
     <string name="inicio_sesion_google_correcto">Iniciada la sesión con Google correctamente</string>
     <string name="inicio_sesion_google_error">Error en autenticación con Google</string>
+    <string name="nombre">Nombre</string>
+    <string name="fecha_de_nacimiento">Fecha de nacimiento</string>
+    <string name="email">Email</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="registro">Registrarse</string>
+    <string name="registro_correcto">Registro realizado correctamente. Iniciando sesión…</string>
     <string name="snackbar_boton_pulsado">Has pulsado el botón</string>
     <string name="alert_confirmacion">¿Estás seguro de que deseas salir?</string>
     <string name="alert_cerrar_sesion">¿Deseas cerrar sesión?</string>

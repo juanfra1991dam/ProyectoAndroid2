@@ -8,37 +8,55 @@
     <!-- LoginFragment -->
     <fragment
             android:id="@+id/LoginFragment"
-            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.LoginFragment"
+            android:name="com.example.proyectoandroid2.fragments.LoginFragment"
             android:label="Login"
             tools:layout="@layout/fragment_login">
         <action android:id="@+id/action_LoginFragment_to_ScaffoldFragment" app:destination="@id/ScaffoldFragment"/>
         <action android:id="@+id/action_LoginFragment_to_ForgotPasswordFragment" app:destination="@id/ForgotPasswordFragment"/>
+        <action android:id="@+id/action_LoginFragment_to_RegistroFragment" app:destination="@id/RegistroFragment"/>
+        <action android:id="@+id/action_RegistroFragment_to_ScaffoldFragment" app:destination="@id/ScaffoldFragment"/>
     </fragment>
 
     <!-- ForgotPasswordFragment -->
     <fragment
             android:id="@+id/ForgotPasswordFragment"
-            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.ForgotPasswordFragment"
-            android:label="Forgot Password"
+            android:name="com.example.proyectoandroid2.fragments.ForgotPasswordFragment"
+            android:label="Contraseña Fragment"
             tools:layout="@layout/fragment_forgot_password"/>
 
-    <!-- ScaffoldFragment con Tabs -->
+    <!-- RegistroFragment -->
+    <fragment
+            android:id="@+id/RegistroFragment"
+            android:name="com.example.proyectoandroid2.fragments.RegistroFragment"
+            android:label="Registro Fragment"
+            tools:layout="@layout/fragment_registro">
+        <action android:id="@+id/action_RegistroFragment_to_ScaffoldFragment" app:destination="@id/ScaffoldFragment"/>
+    </fragment>
+
+    <!-- ScaffoldFragment -->
     <fragment
             android:id="@+id/ScaffoldFragment"
             android:name="com.example.proyectoandroid2.fragments.ScaffoldFragment"
             android:label="Scaffold Fragment"
             tools:layout="@layout/fragment_scaffold">
-        <action android:id="@+id/action_ScaffoldFragment_to_HomeFragment" app:destination="@id/HomeFragment"/>
+        <action android:id="@+id/action_ScaffoldFragment_to_HomeFragment" app:destination="@id/ContactoFragment"/>
         <action android:id="@+id/action_ScaffoldFragment_to_ListaFragment" app:destination="@id/ListaFragment"/>
         <action android:id="@+id/action_ScaffoldFragment_to_FavoritosFragment" app:destination="@id/FavoritosFragment"/>
     </fragment>
 
     <!-- HomeFragment -->
-    <fragment
+    <!--<fragment
             android:id="@+id/HomeFragment"
             android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.HomeFragment"
-            android:label="Home"
-            tools:layout="@layout/fragment_home"/>
+            android:label="Inicio"
+            tools:layout="@layout/fragment_home"/>-->
+
+    <!-- ContactoFragment -->
+    <fragment
+            android:id="@+id/ContactoFragment"
+            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.ContactoFragment"
+            android:label="Contacto"
+            tools:layout="@layout/fragment_contacto"/>
 
     <!-- ListaFragment -->
     <fragment

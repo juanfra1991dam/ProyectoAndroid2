@@ -102,7 +102,7 @@
                         android:id="@+id/locationImage"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_gps"/>
+                        android:src="@drawable/ic_location"/>
 
                 <EditText
                         android:id="@+id/etUbicacion"
@@ -125,7 +125,7 @@
                         android:id="@+id/whatsappImage"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_whatsapp"/>
+                        android:src="@drawable/ic_chat"/>
 
                 <EditText
                         android:id="@+id/etWhatsapp"
@@ -147,5 +147,15 @@
                 android:src="@drawable/maps"
                 android:scaleType="centerCrop"
                 android:layout_marginTop="16dp"/>
+        <TextView
+                android:id="@+id/textBienvenidaContacto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/bienvenida"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center"/>
     </LinearLayout>
+
 </ScrollView>

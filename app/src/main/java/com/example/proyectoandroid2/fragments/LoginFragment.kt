@@ -1,7 +1,5 @@
-package com.example.proyectoandroid2.fragments.scaffoldFragments
+package com.example.proyectoandroid2.fragments
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.text.Editable
@@ -36,7 +34,6 @@ class LoginFragment : Fragment() {
     private lateinit var oneTapClient: SignInClient
     private lateinit var signInRequest: BeginSignInRequest
     private val loginViewModel: LoginViewModel by viewModels()
-    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -136,7 +133,7 @@ class LoginFragment : Fragment() {
         }
 
         registerText.setOnClickListener {
-            showSnackbar(view, getString(R.string.snackbar_boton_pulsado) + " " + registerText.text)
+            findNavController().navigate(R.id.action_LoginFragment_to_RegistroFragment)
         }
     }
 
@@ -147,11 +144,6 @@ class LoginFragment : Fragment() {
         config.setLocale(locale)
         requireContext().resources.updateConfiguration(config, requireContext().resources.displayMetrics)
         requireActivity().recreate()
-    }
-
-    private fun loadLanguage() {
-        val language = sharedPreferences.getString("language", "es") // Predeterminado es español
-        changeLanguage(language ?: "es")
     }
 
     private fun signIn(email: String, password: String) {

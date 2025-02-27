@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical"
               android:padding="16dp"
-              tools:context=".fragments.scaffoldFragments.LoginFragment"
+              tools:context=".fragments.LoginFragment"
               android:background="@color/white">
 
     <!-- LinearLayout horizontal para los botones de cambio de idioma -->
@@ -84,6 +84,7 @@
             android:id="@+id/buttonSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/submit"/>
 
@@ -91,7 +92,8 @@
     <TextView
             android:id="@+id/textForgotPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:textSize="16sp"
             android:text="@string/password_olvidada"
             android:textStyle="bold"
             android:gravity="center"
@@ -112,6 +114,7 @@
             android:id="@+id/buttonGoogle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:text="@string/login_con_google"
             android:textColor="@android:color/white"
             android:backgroundTint="@color/colorGoogle"
@@ -124,6 +127,7 @@
             android:id="@+id/buttonFacebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:text="@string/login_con_facebook"
             android:textColor="@android:color/white"
             android:backgroundTint="@color/colorFacebook"
@@ -135,7 +139,8 @@
     <TextView
             android:id="@+id/textRegister"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:textSize="16sp"
             android:text="@string/registrarse"
             android:textStyle="bold"
             android:gravity="center"

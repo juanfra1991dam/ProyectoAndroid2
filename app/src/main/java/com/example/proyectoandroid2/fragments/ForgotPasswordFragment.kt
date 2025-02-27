@@ -1,4 +1,4 @@
-package com.example.proyectoandroid2.fragments.scaffoldFragments
+package com.example.proyectoandroid2.fragments
 
 import android.os.Bundle
 import android.view.*

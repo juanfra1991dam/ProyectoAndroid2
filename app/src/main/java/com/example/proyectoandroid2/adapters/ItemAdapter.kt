@@ -68,16 +68,7 @@ class ItemAdapter(
         return itemList.size
     }
 
-    // Método para actualizar la lista con solo los favoritos
-    fun updateFavoritesList(newList: List<Item>) {
-        val favoriteItems = newList.filter { it.favorito } // Filtrar solo los favoritos
-        val diffResult = DiffUtil.calculateDiff(ItemDiffCallback(itemList, favoriteItems))
-        itemList.clear()
-        itemList.addAll(favoriteItems)
-        diffResult.dispatchUpdatesTo(this)
-    }
-
-    // Método para actualizar la lista general (todos los elementos)
+    // Metodo para actualizar la lista general (todos los elementos)
     fun updateList(newList: List<Item>) {
         val diffResult = DiffUtil.calculateDiff(ItemDiffCallback(itemList, newList))
         itemList.clear()

@@ -1,13 +1,17 @@
 package com.example.proyectoandroid2.fragments
 
 import PilotosViewModel
-import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.view.*
 import android.widget.TextView
+import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -18,14 +22,18 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
 import com.example.proyectoandroid2.R
 import com.example.proyectoandroid2.activities.MainActivity
 import com.example.proyectoandroid2.databinding.FragmentScaffoldBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ScaffoldFragment : Fragment() {
+
     private lateinit var binding: FragmentScaffoldBinding
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var navView: NavigationView
@@ -33,6 +41,7 @@ class ScaffoldFragment : Fragment() {
     private lateinit var onBackPressedCallback: OnBackPressedCallback
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var viewModel: PilotosViewModel
+    private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -64,7 +73,7 @@ class ScaffoldFragment : Fragment() {
         navController = navHostFragment.navController
 
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.nav_home, R.id.nav_lista, R.id.nav_favoritos), binding.drawerLayout
+            setOf(R.id.nav_contacto, R.id.nav_lista, R.id.nav_favoritos), binding.drawerLayout
         )
 
         setupActionBarWithNavController(requireActivity() as AppCompatActivity, navController, appBarConfiguration)
@@ -82,14 +91,46 @@ class ScaffoldFragment : Fragment() {
         /* BOTTOM NAVIGATION MENU */
         binding.bottomNavigation.setupWithNavController(navController)
 
-        /* ACTUALIZAR EMAIL DEL USUARIO EN EL HEADER DEL DRAWER */
+        /* ACTUALIZAR EMAIL Y FOTO DEL USUARIO EN EL HEADER DEL DRAWER */
         navView = binding.navigation
         val headerView = navView.getHeaderView(0)
         val userEmailTextView: TextView = headerView.findViewById(R.id.textViewName)
+        val userProfileImageView: ImageView = headerView.findViewById(R.id.imageViewProfile)
 
         val user = FirebaseAuth.getInstance().currentUser
         val userEmail = user?.email ?: "Usuario no autenticado"
         userEmailTextView.text = userEmail
+
+        // Obtener la imagen y nombre del usuario desde Firestore
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        userId?.let {
+            firestore.collection("usuarios")
+                .document(it)
+                .get()
+                .addOnSuccessListener { document ->
+                    val name = document.getString("nombre") ?: userEmail
+                    val imageBase64 = document.getString("imagenPerfil")
+
+                    // Actualizar el nombre
+                    userEmailTextView.text = name
+
+                    // Si hay una imagen en Base64, convertirla y cargarla
+                    imageBase64?.let { base64 ->
+                        val bitmap = convertBase64ToBitmap(base64)
+                        Glide.with(requireContext())
+                            .load(bitmap)
+                            .into(userProfileImageView)
+                    } ?: run {
+                        // Si no hay imagen, cargar la imagen por defecto
+                        Glide.with(requireContext())
+                            .load(R.drawable.ic_user)
+                            .into(userProfileImageView)
+                    }
+                }
+                .addOnFailureListener { e ->
+                    // Manejar error en la carga de datos
+                }
+        }
 
         // Agregar proveedor de menú
         this.activity?.addMenuProvider(object : MenuProvider {
@@ -160,5 +201,9 @@ class ScaffoldFragment : Fragment() {
             .setNegativeButton(R.string.alert_no, null)
             .show()
     }
-}
 
+    private fun convertBase64ToBitmap(base64String: String): Bitmap {
+        val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+    }
+}

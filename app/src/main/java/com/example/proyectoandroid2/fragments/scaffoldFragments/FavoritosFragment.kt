@@ -2,11 +2,9 @@ package com.example.proyectoandroid2.fragments.scaffoldFragments
 
 import ItemAdapter
 import PilotosViewModel
-import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -21,7 +19,6 @@ import com.example.proyectoandroid2.databinding.FragmentListaBinding
 import com.example.proyectoandroid2.items.Item
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import java.util.*
 
 class FavoritosFragment : Fragment() {
 
@@ -46,9 +43,6 @@ class FavoritosFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(PilotosViewModel::class.java)
 
-        val languageCode = arguments?.getString("languageCode") ?: "es"
-        setLocale(languageCode)
-
         // Crear el adaptador y pasarle la lista de items y la función para manejar el clic en favorito
         adapter = ItemAdapter(mutableListOf()) { item ->
             toggleFavorito(item)
@@ -61,24 +55,19 @@ class FavoritosFragment : Fragment() {
 
         // Configuración del SwipeRefreshLayout
         binding.swipeRefreshLayout.setOnRefreshListener {
-            // Cuando el usuario hace swipe para refrescar, cargamos los pilotos
             getFavoritosListFromFirestore()
         }
 
         // Simular un retraso de 2 segundos antes de cargar los pilotos
         Handler(Looper.getMainLooper()).postDelayed({
-            // Después de 2 segundos, obtenemos los pilotos desde Firestore
             getFavoritosListFromFirestore()
         }, 2000)
 
         // Observa los cambios en la lista de pilotos
         viewModel.pilotosList.observe(viewLifecycleOwner) { pilotos ->
-            // Filtrar la lista para mostrar solo los favoritos
             val favoritos = pilotos.filter { it.favorito }
             adapter.updateList(favoritos)
-            // Ocultar ProgressBar una vez que los datos estén listos
             hideLoading()
-            // Detener la animación de refresco
             binding.swipeRefreshLayout.isRefreshing = false
         }
     }
@@ -86,22 +75,12 @@ class FavoritosFragment : Fragment() {
     // Metodo para actualizar la lista cuando el fragmento vuelve al primer plano
     override fun onResume() {
         super.onResume()
-        // Volver a cargar la lista de pilotos cuando el fragmento vuelve al primer plano
         refreshPilotosList()
-    }
-
-    private fun setLocale(languageCode: String) {
-        val locale = Locale(languageCode)
-        Locale.setDefault(locale)
-        val config = Configuration(resources.configuration)
-        config.setLocale(locale)
-        resources.updateConfiguration(config, resources.displayMetrics)
     }
 
     private fun getFavoritosListFromFirestore() {
         val user = FirebaseAuth.getInstance().currentUser
         if (user == null) {
-            Log.e("Firestore", "Usuario no autenticado")
             hideLoading()
             return
         }
@@ -136,7 +115,16 @@ class FavoritosFragment : Fragment() {
                             val puntos = document.getLong("puntos")?.toInt() ?: 0
                             val isFavorito = favoritosSet.contains(numero)
 
-                            val piloto = Item(posicion, numero, nombrePiloto, nombreEquipo, fabrica, nacionalidad, puntos, isFavorito)
+                            val piloto = Item(
+                                posicion,
+                                numero,
+                                nombrePiloto,
+                                nombreEquipo,
+                                fabrica,
+                                nacionalidad,
+                                puntos,
+                                isFavorito
+                            )
                             pilotosList.add(piloto)
                         }
 
@@ -145,19 +133,15 @@ class FavoritosFragment : Fragment() {
                         viewModel.setPilotos(favoritosList)
                         adapter.updateList(favoritosList)
                         hideLoading()
-                        binding?.swipeRefreshLayout?.isRefreshing = false
+                        binding.swipeRefreshLayout.isRefreshing = false
                     }
             }
     }
 
     // Función para refrescar la lista de pilotos
     private fun refreshPilotosList() {
-        // Mostrar ProgressBar inmediatamente después de vaciar la lista
         showLoading()
-
-        // Simular un retraso de 2 segundos antes de obtener los pilotos nuevamente desde Firestore
         Handler(Looper.getMainLooper()).postDelayed({
-            // Obtener los pilotos nuevamente desde Firestore después del retraso
             getFavoritosListFromFirestore()
         }, 2000)
     }
@@ -182,21 +166,13 @@ class FavoritosFragment : Fragment() {
         if (item.favorito) {
             userFavRef.delete()
                 .addOnSuccessListener {
-                    Log.d("Firestore", "Piloto eliminado de favoritos")
                     getFavoritosListFromFirestore()
-                }
-                .addOnFailureListener { exception ->
-                    Log.e("Firestore", "Error al eliminar favorito", exception)
                 }
         } else {
             // Si el piloto no es favorito, agregarlo a los favoritos con todos los campos
             userFavRef.set(favoritoData)
                 .addOnSuccessListener {
-                    Log.d("Firestore", "Piloto agregado a favoritos")
-                    getFavoritosListFromFirestore()  // Recargar la lista
-                }
-                .addOnFailureListener { exception ->
-                    Log.e("Firestore", "Error al agregar favorito", exception)
+                    getFavoritosListFromFirestore()
                 }
         }
     }
@@ -231,11 +207,11 @@ class FavoritosFragment : Fragment() {
     }
 
     private fun showLoading() {
-        binding?.progressBar?.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun hideLoading() {
-        binding?.progressBar?.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
     }
 
     override fun onDestroyView() {

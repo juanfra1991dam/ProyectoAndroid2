@@ -1,150 +1,161 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:padding="16dp"
-              tools:context=".fragments.LoginFragment"
-              android:background="@color/white">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:background="@color/white"
+            tools:context=".fragments.LoginFragment">
 
-    <!-- LinearLayout horizontal para los botones de cambio de idioma -->
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="end">
-        <!-- Imagen para idioma ES -->
-        <ImageButton
-                android:id="@+id/buttonChangeLanguageEs"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:padding="4dp"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+        <!-- LinearLayout horizontal para los botones de cambio de idioma -->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end">
+
+            <!-- Imagen para idioma ES -->
+            <ImageButton
+                    android:id="@+id/buttonChangeLanguageEs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:padding="4dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_bandera_es_lang"
+                    android:contentDescription="@string/cambiar_idioma"/>
+
+            <!-- Imagen para idioma EN -->
+            <ImageButton
+                    android:id="@+id/buttonChangeLanguageEn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:padding="4dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_bandera_uk_lang"
+                    android:contentDescription="@string/cambiar_idioma"/>
+
+            <!-- Imagen para idioma FR -->
+            <ImageButton
+                    android:id="@+id/buttonChangeLanguageFr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:padding="4dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_bandera_fr_lang"
+                    android:contentDescription="@string/cambiar_idioma"/>
+        </LinearLayout>
+
+        <!-- Imagen para el logo -->
+        <ImageView
+                android:id="@+id/imageLogo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_bandera_es_lang"
-                android:contentDescription="@string/cambiar_idioma"/>
-        <!-- Imagen para idioma EN -->
-        <ImageButton
-                android:id="@+id/buttonChangeLanguageEn"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:padding="4dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_bandera_uk_lang"
-                android:contentDescription="@string/cambiar_idioma"/>
-        <!-- Imagen para idioma FR -->
-        <ImageButton
-                android:id="@+id/buttonChangeLanguageFr"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:padding="4dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_bandera_fr_lang"
-                android:contentDescription="@string/cambiar_idioma"/>
+                android:src="@drawable/logo_motogp"
+                android:contentDescription="@string/logo"/>
+
+        <!-- Campo de texto para el usuario -->
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/usuario">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Campo de texto para la contraseña -->
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Botón de "Iniciar sesión" -->
+        <Button
+                android:id="@+id/buttonSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="@string/submit"/>
+
+        <!-- Botón de "¿Has olvidado tu contraseña?" -->
+        <TextView
+                android:id="@+id/textForgotPassword"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textSize="16sp"
+                android:text="@string/password_olvidada"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+        <!-- Separador -->
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDark"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"/>
+
+        <!-- Botón de Login con Google -->
+        <Button
+                android:id="@+id/buttonGoogle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="@string/login_con_google"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/colorGoogle"
+                android:drawableLeft="@drawable/ic_google_logo"
+                android:paddingStart="10dp"
+                android:paddingEnd="16dp"/>
+
+        <!-- Botón de Login con Facebook -->
+        <Button
+                android:id="@+id/buttonFacebook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="@string/login_con_facebook"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/colorFacebook"
+                android:drawableLeft="@drawable/ic_facebook_logo"
+                android:paddingStart="10dp"
+                android:paddingEnd="16dp"/>
+
+        <!-- Botón de "Registrarse" -->
+        <TextView
+                android:id="@+id/textRegister"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textSize="16sp"
+                android:text="@string/registrarse"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
     </LinearLayout>
 
-    <!-- Imagen para el logo -->
-    <ImageView
-            android:id="@+id/imageLogo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/logo_motogp"
-            android:contentDescription="@string/logo"/>
-
-    <!-- Campo de texto para el usuario -->
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayoutEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/usuario">
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Campo de texto para la contraseña -->
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayoutPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/password">
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Botón de "Iniciar sesión" -->
-    <Button
-            android:id="@+id/buttonSubmit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:text="@string/submit"/>
-
-    <!-- Botón de "¿Has olvidado tu contraseña?" -->
-    <TextView
-            android:id="@+id/textForgotPassword"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:textSize="16sp"
-            android:text="@string/password_olvidada"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:paddingTop="8dp"
-            android:clickable="true"
-            android:focusable="true"/>
-
-    <!-- Separador -->
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorPrimaryDark"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"/>
-
-    <!-- Botón de Login con Google -->
-    <Button
-            android:id="@+id/buttonGoogle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="@string/login_con_google"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/colorGoogle"
-            android:drawableLeft="@drawable/ic_google_logo"
-            android:paddingStart="10dp"
-            android:paddingEnd="16dp"/>
-
-    <!-- Botón de Login con Facebook -->
-    <Button
-            android:id="@+id/buttonFacebook"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="@string/login_con_facebook"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/colorFacebook"
-            android:drawableLeft="@drawable/ic_facebook_logo"
-            android:paddingStart="10dp"
-            android:paddingEnd="16dp"/>
-
-    <!-- Botón de "Registrarse" -->
-    <TextView
-            android:id="@+id/textRegister"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:textSize="16sp"
-            android:text="@string/registrarse"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:paddingTop="8dp"
-            android:clickable="true"
-            android:focusable="true"/>
-</LinearLayout>
+</ScrollView>

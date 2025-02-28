@@ -1,8 +1,6 @@
 package com.example.proyectoandroid2.fragments
 
-import android.app.Activity
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
@@ -11,15 +9,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.proyectoandroid2.R
 import com.example.proyectoandroid2.databinding.FragmentRegistroBinding
 import com.example.proyectoandroid2.viewmodels.RegistroViewModel
+import com.google.firebase.auth.FirebaseAuth
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -27,6 +26,26 @@ class RegistroFragment : Fragment() {
 
     private lateinit var binding: FragmentRegistroBinding
     private val registroViewModel: RegistroViewModel by activityViewModels()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentRegistroBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupObservers()
+        setupListeners()
+
+        // Habilitar la detección del botón de retroceso en el fragmento
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
+    }
 
     private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         uri?.let {
@@ -39,18 +58,6 @@ class RegistroFragment : Fragment() {
             val imageBase64 = convertBitmapToBase64(bitmap)
             registroViewModel.imageBase64 = imageBase64
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentRegistroBinding.inflate(inflater, container, false)
-
-        setupObservers()
-        setupListeners()
-
-        return binding.root
     }
 
     private fun setupObservers() {
@@ -126,7 +133,7 @@ class RegistroFragment : Fragment() {
         datePickerDialog.show()
     }
 
-    // Método para convertir el Bitmap a Base64
+    // Metodo para convertir el Bitmap a Base64
     private fun convertBitmapToBase64(bitmap: Bitmap): String {
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)

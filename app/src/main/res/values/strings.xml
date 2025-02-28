@@ -66,5 +66,8 @@
     <string name="telefono_valido">Por favor, ingresa un número de teléfono válido</string>
     <string name="permiso_llamada_denegado">Permiso de llamada denegado</string>
     <string name="permiso_ubicacion_denegado">Permiso de ubicación denegado</string>
-    <string name="_34">+34</string>
+    <string name="contacto_telefono">600 123 456</string>
+    <string name="contacto_correo">contacto@empresa.com</string>
+    <string name="contacto_direccion">C. Carlos III, 3, 30201 Cartagena, Murcia</string>
+    <string name="contacto_whatsapp">+34 666 666 666</string>
 </resources>

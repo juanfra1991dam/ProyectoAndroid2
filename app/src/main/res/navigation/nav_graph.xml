@@ -39,24 +39,18 @@
             android:name="com.example.proyectoandroid2.fragments.ScaffoldFragment"
             android:label="Scaffold Fragment"
             tools:layout="@layout/fragment_scaffold">
-        <action android:id="@+id/action_ScaffoldFragment_to_HomeFragment" app:destination="@id/ContactoFragment"/>
+        <action android:id="@+id/action_ScaffoldFragment_to_HomeFragment" app:destination="@id/HomeFragment"/>
         <action android:id="@+id/action_ScaffoldFragment_to_ListaFragment" app:destination="@id/ListaFragment"/>
         <action android:id="@+id/action_ScaffoldFragment_to_FavoritosFragment" app:destination="@id/FavoritosFragment"/>
+        <action android:id="@+id/action_ScaffoldFragment_to_ContactoFragment" app:destination="@id/ContactoFragment"/>
     </fragment>
 
     <!-- HomeFragment -->
-    <!--<fragment
+    <fragment
             android:id="@+id/HomeFragment"
             android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.HomeFragment"
             android:label="Inicio"
-            tools:layout="@layout/fragment_home"/>-->
-
-    <!-- ContactoFragment -->
-    <fragment
-            android:id="@+id/ContactoFragment"
-            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.ContactoFragment"
-            android:label="Contacto"
-            tools:layout="@layout/fragment_contacto"/>
+            tools:layout="@layout/fragment_home"/>
 
     <!-- ListaFragment -->
     <fragment
@@ -71,4 +65,11 @@
             android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.FavoritosFragment"
             android:label="Favoritos"
             tools:layout="@layout/fragment_favoritos"/>
+
+    <!-- ContactoFragment -->
+    <fragment
+            android:id="@+id/ContactoFragment"
+            android:name="com.example.proyectoandroid2.fragments.scaffoldFragments.ContactoFragment"
+            android:label="Contacto"
+            tools:layout="@layout/fragment_contacto"/>
 </navigation>

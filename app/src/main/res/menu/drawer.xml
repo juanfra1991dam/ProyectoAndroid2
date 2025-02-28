@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-            android:id="@+id/nav_contacto"
-            android:icon="@drawable/ic_contacto"
-            android:title="@string/menu_contacto" />
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/menu_home"/>
     <item
             android:id="@+id/nav_lista"
             android:icon="@drawable/ic_classification"
-            android:title="@string/menu_clasificacion" />
+            android:title="@string/menu_clasificacion"/>
     <item
             android:id="@+id/nav_favoritos"
             android:icon="@drawable/ic_favoritos"
-            android:title="@string/menu_favoritos" />
+            android:title="@string/menu_favoritos"/>
+    <item
+            android:id="@+id/nav_contacto"
+            android:icon="@drawable/ic_contacto"
+            android:title="@string/menu_contacto"/>
 </menu>

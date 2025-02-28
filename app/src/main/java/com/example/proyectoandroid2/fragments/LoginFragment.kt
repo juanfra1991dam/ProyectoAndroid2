@@ -1,5 +1,6 @@
 package com.example.proyectoandroid2.fragments
 
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.text.Editable
@@ -34,6 +35,16 @@ class LoginFragment : Fragment() {
     private lateinit var oneTapClient: SignInClient
     private lateinit var signInRequest: BeginSignInRequest
     private val loginViewModel: LoginViewModel by viewModels()
+
+    private var selectedLanguage: String = "es"
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Recuperar el idioma seleccionado de SharedPreferences
+        val sharedPreferences = requireContext().getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
+        selectedLanguage = sharedPreferences.getString("selectedLanguage", "es") ?: "es"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -137,12 +148,22 @@ class LoginFragment : Fragment() {
         }
     }
 
+    // Cambiar idioma y reiniciar la actividad
     private fun changeLanguage(language: String) {
+        selectedLanguage = language // Guardar idioma seleccionado
         val locale = Locale(language)
         Locale.setDefault(locale)
         val config = Configuration(requireContext().resources.configuration)
         config.setLocale(locale)
         requireContext().resources.updateConfiguration(config, requireContext().resources.displayMetrics)
+
+        // Guardar idioma en SharedPreferences
+        val sharedPreferences = requireContext().getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("selectedLanguage", language)
+        editor.apply()
+
+        // Reiniciar la actividad para aplicar el cambio de idioma
         requireActivity().recreate()
     }
 
@@ -153,7 +174,10 @@ class LoginFragment : Fragment() {
                     val user = firebaseAuth.currentUser
                     user?.let {
                         Toast.makeText(requireContext(), getString(R.string.bienvenida, user.email), Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_LoginFragment_to_ScaffoldFragment)
+                        val bundle = Bundle().apply {
+                            putString("selectedLanguage", selectedLanguage)
+                        }
+                        findNavController().navigate(R.id.action_LoginFragment_to_ScaffoldFragment, bundle)
                     }
                 } else {
                     Toast.makeText(requireContext(), getString(R.string.credenciales_invalidas), Toast.LENGTH_SHORT).show()
@@ -170,8 +194,14 @@ class LoginFragment : Fragment() {
                 firebaseAuth.signInWithCredential(firebaseCredential)
                     .addOnCompleteListener(requireActivity()) { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(requireContext(), getString(R.string.inicio_sesion_google_correcto), Toast.LENGTH_SHORT).show()
-                            findNavController().navigate(R.id.action_LoginFragment_to_ScaffoldFragment)
+                            val user = firebaseAuth.currentUser
+                            user?.let {
+                                Toast.makeText(requireContext(), getString(R.string.bienvenida, user.email), Toast.LENGTH_SHORT).show()
+                                val bundle = Bundle().apply {
+                                    putString("selectedLanguage", selectedLanguage)
+                                }
+                                findNavController().navigate(R.id.action_LoginFragment_to_ScaffoldFragment, bundle)
+                            }
                         } else {
                             Toast.makeText(requireContext(), getString(R.string.inicio_sesion_google_error), Toast.LENGTH_SHORT).show()
                         }

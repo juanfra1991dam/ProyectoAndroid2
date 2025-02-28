@@ -15,17 +15,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal"
-            android:layout_gravity="bottom">
+            android:layout_gravity="top">
 
-        <TextView
-                android:id="@+id/textBienvenida"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/bienvenida"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
-                android:gravity="center"/>
     </LinearLayout>
+    <TextView
+            android:id="@+id/textBienvenida"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bienvenida"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:paddingTop="10dp" android:textColor="@android:color/white"
+            android:gravity="center"/>
 
 </FrameLayout>

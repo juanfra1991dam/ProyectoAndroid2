@@ -20,19 +20,20 @@
 
             <ImageView
                     android:id="@+id/logoImage"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/logo_motogp"
                     android:layout_marginBottom="8dp"/>
 
             <TextView
                     android:id="@+id/tvNombreEmpresa"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/formulario_de_contacto"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
         </LinearLayout>
 
         <!-- Información de contacto -->
@@ -61,9 +62,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="@string/introduce_tu_telefono"
+                        android:text="@string/contacto_telefono"
                         android:inputType="phone"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+                        android:enabled="false"
+                        android:focusable="false"/>
             </LinearLayout>
 
             <!-- Correo -->
@@ -85,9 +88,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="@string/introduce_tu_correo"
+                        android:text="@string/contacto_correo"
                         android:inputType="textEmailAddress"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+                        android:enabled="false"
+                        android:focusable="false"/>
             </LinearLayout>
 
             <!-- Dirección -->
@@ -109,8 +114,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="@string/introduce_tu_ubicacion"
-                        android:textSize="16sp"/>
+                        android:text="@string/contacto_direccion"
+                        android:textSize="16sp"
+                        android:enabled="false"
+                        android:focusable="false"/>
             </LinearLayout>
 
             <!-- WhatsApp -->
@@ -132,10 +139,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="@string/introduce_tu_whatsapp"
+                        android:text="@string/contacto_whatsapp"
                         android:inputType="phone"
                         android:textSize="16sp"
-                        android:text="@string/_34"/>
+                        android:enabled="false"
+                        android:focusable="false"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -147,15 +155,6 @@
                 android:src="@drawable/maps"
                 android:scaleType="centerCrop"
                 android:layout_marginTop="16dp"/>
-        <TextView
-                android:id="@+id/textBienvenidaContacto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/bienvenida"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="center"/>
     </LinearLayout>
 
 </ScrollView>

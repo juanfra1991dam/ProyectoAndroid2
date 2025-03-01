@@ -44,6 +44,7 @@ class LoginFragment : Fragment() {
         // Recuperar el idioma seleccionado de SharedPreferences
         val sharedPreferences = requireContext().getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
         selectedLanguage = sharedPreferences.getString("selectedLanguage", "es") ?: "es"
+        changeLanguage(selectedLanguage, false)
     }
 
     override fun onCreateView(
@@ -82,9 +83,9 @@ class LoginFragment : Fragment() {
         val emailInputLayout = view.findViewById<TextInputLayout>(R.id.inputLayoutEmail)
         val passwordInputLayout = view.findViewById<TextInputLayout>(R.id.inputLayoutPassword)
 
-        changeLanguageImageButtonEs.setOnClickListener { changeLanguage("es") }
-        changeLanguageImageButtonEn.setOnClickListener { changeLanguage("en") }
-        changeLanguageImageButtonFr.setOnClickListener { changeLanguage("fr") }
+        changeLanguageImageButtonEs.setOnClickListener { changeLanguage("es", true) }
+        changeLanguageImageButtonEn.setOnClickListener { changeLanguage("en", true) }
+        changeLanguageImageButtonFr.setOnClickListener { changeLanguage("fr", true) }
 
         loginViewModel.isButtonEnabled.observe(viewLifecycleOwner) { isEnabled ->
             submitButton.isEnabled = isEnabled
@@ -149,8 +150,8 @@ class LoginFragment : Fragment() {
     }
 
     // Cambiar idioma y reiniciar la actividad
-    private fun changeLanguage(language: String) {
-        selectedLanguage = language // Guardar idioma seleccionado
+    private fun changeLanguage(language: String, isChangeLanguage: Boolean) {
+        selectedLanguage = language
         val locale = Locale(language)
         Locale.setDefault(locale)
         val config = Configuration(requireContext().resources.configuration)
@@ -163,8 +164,10 @@ class LoginFragment : Fragment() {
         editor.putString("selectedLanguage", language)
         editor.apply()
 
-        // Reiniciar la actividad para aplicar el cambio de idioma
-        requireActivity().recreate()
+        // Reiniciar la actividad para aplicar el cambio de idioma(solo cuando el usuario pulse el boton)
+        if (isChangeLanguage) {
+            requireActivity().recreate()
+        }
     }
 
     private fun signIn(email: String, password: String) {

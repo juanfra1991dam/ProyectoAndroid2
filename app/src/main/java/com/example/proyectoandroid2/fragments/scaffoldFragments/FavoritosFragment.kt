@@ -58,10 +58,10 @@ class FavoritosFragment : Fragment() {
             getFavoritosListFromFirestore()
         }
 
-        // Simular un retraso de 2 segundos antes de cargar los pilotos
+        // Simular un retraso de 1 segundos antes de cargar los pilotos
         Handler(Looper.getMainLooper()).postDelayed({
             getFavoritosListFromFirestore()
-        }, 2000)
+        }, 1000)
 
         // Observa los cambios en la lista de pilotos
         viewModel.pilotosList.observe(viewLifecycleOwner) { pilotos ->
@@ -143,7 +143,7 @@ class FavoritosFragment : Fragment() {
         showLoading()
         Handler(Looper.getMainLooper()).postDelayed({
             getFavoritosListFromFirestore()
-        }, 2000)
+        }, 1000)
     }
 
     private fun toggleFavorito(item: Item) {

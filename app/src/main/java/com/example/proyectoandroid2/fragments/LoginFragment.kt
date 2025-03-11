@@ -199,10 +199,10 @@ class LoginFragment : Fragment() {
                         if (task.isSuccessful) {
                             val user = firebaseAuth.currentUser
                             user?.let {
-                                Toast.makeText(requireContext(), getString(R.string.bienvenida, user.email), Toast.LENGTH_SHORT).show()
                                 val bundle = Bundle().apply {
                                     putString("selectedLanguage", selectedLanguage)
                                 }
+                                Toast.makeText(requireContext(), getString(R.string.bienvenida, user.email), Toast.LENGTH_SHORT).show()
                                 findNavController().navigate(R.id.action_LoginFragment_to_ScaffoldFragment, bundle)
                             }
                         } else {

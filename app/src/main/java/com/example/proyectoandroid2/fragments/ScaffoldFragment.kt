@@ -11,6 +11,7 @@ import android.util.Base64
 import android.view.*
 import android.widget.TextView
 import android.widget.ImageView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -121,6 +122,13 @@ class ScaffoldFragment : Fragment() {
             activity?.invalidateOptionsMenu()
         }
 
+        // Manejo del botón "Atrás"
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                verificarYCerrarSesion()
+            }
+        })
+
         this.activity?.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.toolbar, menu)
@@ -184,6 +192,8 @@ class ScaffoldFragment : Fragment() {
                 }
             }
         }, activity as AppCompatActivity, Lifecycle.State.RESUMED)
+
+
     }
 
     private fun setLocale(languageCode: String) {

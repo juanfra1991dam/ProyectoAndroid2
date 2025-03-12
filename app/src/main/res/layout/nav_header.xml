@@ -6,7 +6,7 @@
         android:orientation="vertical"
         android:layout_gravity="start"
         android:padding="4dp"
-        android:background="@color/colorFacebook">
+        android:background="@color/colorPrimaryDark">
 
     <ImageView
             android:id="@+id/imageViewProfile"

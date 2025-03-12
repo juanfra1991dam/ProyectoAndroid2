@@ -20,8 +20,6 @@ class ContactoFragment : Fragment() {
     private val REQUEST_PHONE_CALL = 1
     private val REQUEST_LOCATION_PERMISSION = 2
 
-    private var selectedLanguage: String = "es"
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {

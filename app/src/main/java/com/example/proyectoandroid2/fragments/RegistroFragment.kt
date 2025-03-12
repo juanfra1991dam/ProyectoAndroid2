@@ -18,7 +18,6 @@ import com.bumptech.glide.Glide
 import com.example.proyectoandroid2.R
 import com.example.proyectoandroid2.databinding.FragmentRegistroBinding
 import com.example.proyectoandroid2.viewmodels.RegistroViewModel
-import com.google.firebase.auth.FirebaseAuth
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -77,13 +76,13 @@ class RegistroFragment : Fragment() {
             binding.inputLayoutFechaNacimiento.error = error
         }
 
-        registroViewModel.registroExitoso.observe(viewLifecycleOwner) { exito ->
+        registroViewModel.registroCorrecto.observe(viewLifecycleOwner) { exito ->
             if (exito) {
                 Toast.makeText(requireContext(), getString(R.string.registro_correcto), Toast.LENGTH_SHORT).show()
             }
         }
 
-        registroViewModel.loginExitoso.observe(viewLifecycleOwner) { exito ->
+        registroViewModel.loginCorrecto.observe(viewLifecycleOwner) { exito ->
             if (exito) {
                 findNavController().navigate(R.id.action_RegistroFragment_to_ScaffoldFragment)
             }

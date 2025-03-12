@@ -13,8 +13,8 @@ class RegistroViewModel : ViewModel() {
     val emailError = MutableLiveData<String?>()
     val passwordError = MutableLiveData<String?>()
     val fechaNacimientoError = MutableLiveData<String?>()
-    val registroExitoso = MutableLiveData<Boolean>()
-    val loginExitoso = MutableLiveData<Boolean>()
+    val registroCorrecto = MutableLiveData<Boolean>()
+    val loginCorrecto = MutableLiveData<Boolean>()
     val mensajeError = MutableLiveData<String?>()
 
     var imageBase64: String? = null
@@ -91,7 +91,7 @@ class RegistroViewModel : ViewModel() {
                             .document(it.uid)
                             .set(usuarioData, SetOptions.merge())
                             .addOnSuccessListener {
-                                registroExitoso.value = true
+                                registroCorrecto.value = true
                                 signIn(email, password)
                             }
                             .addOnFailureListener { e ->
@@ -112,7 +112,7 @@ class RegistroViewModel : ViewModel() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    loginExitoso.value = true
+                    loginCorrecto.value = true
                 } else {
                     mensajeError.value = "Error al iniciar sesión: ${task.exception?.message}"
                 }

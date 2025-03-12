@@ -47,7 +47,7 @@ class ItemAdapter(
                 binding.imagenFavorito.setImageResource(R.drawable.ic_favorito_unselected)
             }
 
-            // Cambiar el estado del favorito cuando se haga clic
+            // Cambia el estado del favorito cuando se haga clic
             binding.imagenFavorito.setOnClickListener {
                 onFavoritoClick(data)
             }

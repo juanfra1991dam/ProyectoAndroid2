@@ -192,8 +192,6 @@ class ScaffoldFragment : Fragment() {
                 }
             }
         }, activity as AppCompatActivity, Lifecycle.State.RESUMED)
-
-
     }
 
     private fun setLocale(languageCode: String) {
